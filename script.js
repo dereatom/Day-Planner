@@ -10,11 +10,11 @@ var hour5 = $("#17");
 var time = moment();
 
 function setPlanner() {
-
+//----displaying current date at top---//
     $("#currentDay").text(moment().format("dddd, MMMM Do"));
-
+    
     $(".time-block").each(function () {
-        var id = $(this).attr("#");
+        var id = $(this).attr("id");
         var schedule = localStorage.getItem(id);
 
         if (schedule !== null) {
@@ -22,21 +22,40 @@ function setPlanner() {
         }
     });
 }
-
+//---set the planner and save user input to localstorage---//
 setPlanner();
 var saveBtn = $(".saveBtn");
 
 saveBtn.on("click", function () {
-    var time = $(this).parent().attr("#");
-    var schedule = $(this).siblings(".schedule").val();
+    var time = $(this).parent().attr("id");
+    var schedule = $(this).siblings(".schedule").val().trim();
 
     localStorage.setItem(time, schedule);
 });
+//-------Getting individual childern and setting to parent-----//
+$("#9am").children("input").val(localStorage.getItem("9"));
 
+$("#10am").children("input").val(localStorage.getItem("10"));
+
+$("#11am").children("input").val(localStorage.getItem("11"));
+
+$("#12pm").children("input").val(localStorage.getItem("12"));
+
+$("#1pm").children("input").val(localStorage.getItem("13"));
+
+$("#2pm").children("input").val(localStorage.getItem("14"));
+
+$("#3pm").children("input").val(localStorage.getItem("15"));
+
+$("#4pm").children("input").val(localStorage.getItem("16"));
+
+$("#5pm").children("input").val(localStorage.getItem("17"));
+
+// ----assigning class for past, present and future by background color----//
 function pastPresentFuture() {
     hour = time.hours();
     $(".time-block").each(function () {
-        var thisHour = parseInt($(this).attr("#"));
+        var thisHour = parseInt($(this).attr("id"));
 
         if (thisHour > hour) {
             $(this).addClass("future")
@@ -49,13 +68,4 @@ function pastPresentFuture() {
         }
     })
 }
-//task list
-// display current day at top of app
-// build timeblocks for business hours
-// display timeblocks by color [ past/present/future ]
-// takes in user input in timeblock
-// save user input to localstorage
-// make user input stay after refresh(persist data)
-
-
-//-------append date by IDs----------//
+pastPresentFuture();
